@@ -11,7 +11,6 @@ module.exports = function(api) {
 					corejs: 3,
 				},
 			],
-			'@babel/preset-react',
 		],
 		plugins: ['@babel/plugin-proposal-object-rest-spread'],
 	};

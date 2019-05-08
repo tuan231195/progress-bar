@@ -14,6 +14,8 @@ cmake-build-*/
 # IntelliJ
 out/
 
+dist/
+
 checkstyle/
 
 # mpeltonen/sbt-idea plugin
