@@ -22,6 +22,56 @@ describe('progress-bar', () => {
 		assertProgressBars(['27%', '20%', '27%']);
 	});
 
+	it('should update when clicking buttons', () => {
+		clickButtons(1, 1);
+		assertProgressBars(['19%', '20%', '27%']);
+
+		clickButtons(1, 3);
+		assertProgressBars(['0%', '20%', '27%']);
+
+		clickButtons(3, 3);
+		assertProgressBars(['50%', '20%', '27%']);
+
+		clickButtons(3, 5);
+		assertProgressBars(['132%', '20%', '27%']);
+		getProgressBar(0).should('have.class', 'progress-bar__fill--over');
+	});
+
+	it('should update the right chart', () => {
+		selectChart(1);
+		clickButtons(1, 1);
+		assertProgressBars(['27%', '12%', '27%']);
+
+		selectChart(2);
+		clickButtons(3, 3);
+		assertProgressBars(['27%', '12%', '77%']);
+	});
+
+	function getButton(index) {
+		return cy
+			.get('#chart-buttons')
+			.find('button')
+			.eq(index);
+	}
+
+	function selectChart(index) {
+		cy.get('#chart-selector select').select(`Progress bar ${index + 1}`);
+	}
+
+	function clickButtons(index, times) {
+		const button = getButton(index);
+		Array.from({ length: times }).forEach(() => {
+			button.click(times);
+		});
+	}
+
+	function getProgressBar(index) {
+		return cy
+			.get('#chart-container')
+			.find('[data-element-name=progress-bar-fill]')
+			.eq(index);
+	}
+
 	function assertProgressBars(progressBarTexts) {
 		cy.get('#chart-container').then(chartContainer => {
 			const progressBars = chartContainer.find('[data-element-name=progress-bar-text]');
