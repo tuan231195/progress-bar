@@ -2,12 +2,16 @@ import { element } from '../utils/html';
 import { CHANGE_CHART, UPDATE_CHART_VALUE } from '../events.constants';
 import { Chart } from '../model/chart';
 import { isInRange } from '../utils/array';
+import { Debounce } from '../utils/debounce';
+
+const DEBOUNCE_MILLIS = 100;
 
 export class ChartContainerComponent {
 	constructor(container, { dispatcher }) {
 		this.container = container;
 		this.dispatcher = dispatcher;
 		this.charts = [];
+		this.animatingDebounce = new Debounce(DEBOUNCE_MILLIS);
 	}
 
 	init() {
@@ -85,9 +89,10 @@ export class ChartContainerComponent {
 				return;
 			}
 
+			const previousValue = this.activeChart.value;
 			this.activeChart.increase(amount);
-			this.updateProgress(this.charts.indexOf(this.activeChart));
-			if (this.activeChart.value === 0) {
+			this.updateProgress(this.charts.indexOf(this.activeChart), true);
+			if (previousValue === 0 && this.activeChart.value === 0) {
 				this.activeChartElement.classList.add('bounce');
 				this.activeChartElement.addEventListener('webkitAnimationEnd', () => {
 					this.activeChartElement.classList.remove('bounce');
@@ -96,7 +101,7 @@ export class ChartContainerComponent {
 		});
 	}
 
-	updateProgress(index) {
+	updateProgress(index, debounce) {
 		const chartElements = this.chartElements();
 
 		const chart = this.charts[index];
@@ -113,7 +118,22 @@ export class ChartContainerComponent {
 			fillElement.classList.remove('progress-bar__fill--over');
 		}
 		textElement.textContent = `${Math.round(chart.percentage)}%`;
-		fillElement.style.width = `${chart.percentage > 100 ? 100 : chart.percentage}%`;
+		const fillWidth = `${chart.percentage > 100 ? 100 : chart.percentage}%`;
+		if (debounce) {
+			if (this.animatingDebounce.isRunning) {
+				this.animatingDebounce.cancel();
+				fillElement.classList.add('no-transition');
+				fillElement.style.width = fillElement.getAttribute('data-last-width');
+			}
+			this.animatingDebounce.run(() => {
+				fillElement.classList.remove('no-transition');
+				fillElement.style.width = fillWidth;
+				fillElement.setAttribute('data-last-width', null);
+			});
+			fillElement.setAttribute('data-last-width', fillWidth);
+		} else {
+			fillElement.style.width = fillWidth;
+		}
 	}
 
 	chartElements() {

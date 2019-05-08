@@ -13,11 +13,14 @@ describe('Testing selector component', () => {
 			dispatcher,
 		});
 		component.init();
+		jest.useFakeTimers();
 	});
 	it('Should render chart text correctly', async () => {
 		component.render({ bars: [30, 40, 50], limit: 200 });
 		const textElements = container.querySelectorAll('[data-element-name=progress-bar-text]');
-		await waitForTimeout();
+
+		jest.runAllTimers();
+
 		expect(textElements.length).toBe(3);
 		expect(Array.from(textElements).map(textElement => textElement.textContent)).toStrictEqual([
 			'15%',
@@ -29,7 +32,9 @@ describe('Testing selector component', () => {
 	it('Should render chart bar correctly', async () => {
 		component.render({ bars: [30, 40, 50], limit: 200 });
 		const fillElements = container.querySelectorAll('[data-element-name=progress-bar-fill]');
-		await waitForTimeout();
+
+		jest.runAllTimers();
+
 		expect(fillElements.length).toBe(3);
 		expect(Array.from(fillElements).map(textElement => textElement.style.width)).toStrictEqual([
 			'15%',
@@ -42,7 +47,6 @@ describe('Testing selector component', () => {
 		component.render({ bars: [30, 40, 50], limit: 200 });
 
 		dispatcher.trigger(UPDATE_CHART_VALUE, 50);
-		await waitForTimeout();
 
 		dispatcher.trigger(CHANGE_CHART, 0);
 		dispatcher.trigger(UPDATE_CHART_VALUE, -50);
@@ -53,7 +57,7 @@ describe('Testing selector component', () => {
 		dispatcher.trigger(CHANGE_CHART, 2);
 		dispatcher.trigger(UPDATE_CHART_VALUE, 160);
 
-		await waitForTimeout();
+		jest.runAllTimers();
 
 		const fillElements = container.querySelectorAll('[data-element-name=progress-bar-fill]');
 

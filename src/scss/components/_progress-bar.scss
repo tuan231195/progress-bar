@@ -15,7 +15,7 @@
 	&__fill {
 		min-height: 3rem;
 		background-color: $color-light-blue;
-		transition: width 1s ease-in-out;
+		transition: width 0.8s ease;
 
 		&--over {
 			background-color: $color-orange-red;

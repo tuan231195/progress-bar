@@ -14,6 +14,8 @@ cmake-build-*/
 # IntelliJ
 out/
 
+cypress/videos
+
 dist/
 
 checkstyle/
