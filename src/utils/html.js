@@ -1,4 +1,4 @@
-export function element(type, { classList, text: txt, data = {} } = {}) {
+export function element(type, { classList, text: txt, data = {}, attributes = {} } = {}) {
 	const node = document.createElement(type);
 	if (txt) {
 		node.textContent = txt;
@@ -9,6 +9,10 @@ export function element(type, { classList, text: txt, data = {} } = {}) {
 
 	Object.entries(data).forEach(([dataKey, dataValue]) => {
 		node.setAttribute(`data-${dataKey}`, dataValue);
+	});
+
+	Object.entries(attributes).forEach(([attributeKey, attributeValue]) => {
+		node.setAttribute(attributeKey, attributeValue);
 	});
 
 	return node;

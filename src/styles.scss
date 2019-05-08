@@ -3,9 +3,11 @@
 @import 'scss/base/mixins';
 @import 'scss/helpers/_spacing.scss';
 @import 'scss/helpers/_layout.scss';
+@import 'scss/helpers/_transitions.scss';
 @import 'scss/base/base';
 @import 'scss/base/container';
 
 @import 'scss/components/input';
 @import 'scss/components/button';
 @import 'scss/components/progress-bar';
+@import 'scss/components/select';

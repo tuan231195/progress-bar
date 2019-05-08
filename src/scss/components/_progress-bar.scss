@@ -3,13 +3,22 @@
 	display: flex;
 	max-width: 50rem;
 	position: relative;
-}
 
-.progress-bar__fill {
-	min-height: 3rem;
-	background-color: lightblue;
-}
+	&--active {
+		outline: solid 1px $color-yellow;
+	}
 
-.progress-bar__text {
-	@include absoluteCenter();
+	&__text {
+		@include absoluteCenter();
+	}
+
+	&__fill {
+		min-height: 3rem;
+		background-color: $color-light-blue;
+		transition: width 1s ease-in-out;
+
+		&--over {
+			background-color: $color-orange-red;
+		}
+	}
 }

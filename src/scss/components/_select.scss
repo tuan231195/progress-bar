@@ -1,0 +1,23 @@
+.select-container {
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+	background: #fff url('/assets/images/chevron-down.gif') no-repeat 90% 50%;
+
+	select {
+		padding: 0.5rem 0.8rem;
+		width: 130%;
+		border: none;
+		font-size: 1.6rem;
+		box-shadow: none;
+		background-color: transparent;
+		background-image: none;
+		appearance: none;
+
+		&:focus {
+			outline: none;
+		}
+	}
+}

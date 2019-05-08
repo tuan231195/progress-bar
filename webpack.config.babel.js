@@ -7,6 +7,7 @@ const extractCss = require('./webpack/plugins/extract-css');
 const html = require('./webpack/plugins/html');
 const eslint = require('@webpack-blocks/eslint');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const { match, env } = require('@webpack-blocks/core');
 
@@ -132,6 +133,14 @@ const webpackConfig = createConfig([
 					},
 					sourceMap: false,
 				}),
+				addPlugins([
+					new CopyWebpackPlugin([
+						{
+							from: path.resolve(__dirname, 'src', 'assets'),
+							to: path.resolve(__dirname, 'dist', 'assets'),
+						},
+					]),
+				]),
 			]
 		),
 		match(
