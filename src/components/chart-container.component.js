@@ -4,14 +4,12 @@ import { Chart } from '../model/chart';
 import { isInRange } from '../utils/array';
 import { Debounce } from '../utils/debounce';
 
-const DEBOUNCE_MILLIS = 100;
-
 export class ChartContainerComponent {
 	constructor(container, { dispatcher }) {
 		this.container = container;
 		this.dispatcher = dispatcher;
 		this.charts = [];
-		this.animatingDebounce = new Debounce(DEBOUNCE_MILLIS);
+		this.animatingDebounce = new Debounce();
 	}
 
 	init() {
@@ -120,17 +118,15 @@ export class ChartContainerComponent {
 		textElement.textContent = `${Math.round(chart.percentage)}%`;
 		const fillWidth = `${chart.percentage > 100 ? 100 : chart.percentage}%`;
 		if (debounce) {
-			if (this.animatingDebounce.isRunning) {
-				this.animatingDebounce.cancel();
+			if (fillElement.getAttribute('data-last-width')) {
 				fillElement.classList.add('no-transition');
 				fillElement.style.width = fillElement.getAttribute('data-last-width');
 			}
 			this.animatingDebounce.run(() => {
 				fillElement.classList.remove('no-transition');
 				fillElement.style.width = fillWidth;
-				fillElement.setAttribute('data-last-width', null);
+				fillElement.setAttribute('data-last-width', fillWidth);
 			});
-			fillElement.setAttribute('data-last-width', fillWidth);
 		} else {
 			fillElement.style.width = fillWidth;
 		}
