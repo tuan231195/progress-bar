@@ -1,0 +1,26 @@
+.container {
+	max-width: 100%;
+
+	@include respond(large-monitor) {
+		margin-left: auto;
+		margin-right: auto;
+		width: 112rem;
+	}
+
+	@include respond(small-monitor) {
+		margin-left: auto;
+		margin-right: auto;
+		width: 93rem;
+	}
+
+	@include respond(tablet) {
+		margin-left: auto;
+		margin-right: auto;
+		width: 72rem;
+	}
+
+	@include respond(mobile) {
+		margin-left: 1.6rem;
+		margin-right: 1.6rem;
+	}
+}

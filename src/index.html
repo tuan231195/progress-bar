@@ -7,6 +7,30 @@
 		<title>Progress bar</title>
 	</head>
 	<body>
-		<div id="content"></div>
+		<div
+			id="container"
+			class="container flex flex-direction-column flex-align-center pad-top-30"
+		>
+			<div class="content">
+				<h1>Progress bar demo</h1>
+				<div class="endpoint pad-top-20 flex flex-align-center">
+					<label aria-label="endpoint">
+						Endpoint
+						<input
+							id="endpoint-txt"
+							class="input marg-left-20 min-width-300"
+							aria-labelledby="endpoint"
+							placeholder="Enter your endpoint here"
+						/>
+					</label>
+					<button id="fetch-btn" class="btn btn-primary marg-left-10">Go</button>
+				</div>
+				<div id="chart-container" class="marg-top-20"></div>
+				<div class="controls flex marg-top-10">
+					<div id="chart-selector" class="marg-right-20"></div>
+					<div id="chart-buttons"></div>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>

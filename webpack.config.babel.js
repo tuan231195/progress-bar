@@ -71,12 +71,13 @@ const webpackConfig = createConfig([
 	}),
 	env('dev', [
 		devServer({
-			contentBase: 'dist',
 			watchContentBase: true,
 			headers: {
 				'Access-Control-Allow-Origin': '*',
 			},
+			hot: false,
 			stats: 'minimal',
+			contentBase: path.resolve(__dirname, 'src'),
 			overlay: true,
 			watchOptions: {
 				aggregateTimeout: 600,

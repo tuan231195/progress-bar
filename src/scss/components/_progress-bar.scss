@@ -1,0 +1,15 @@
+.progress-bar {
+	border: 2px solid $color-light-grey;
+	display: flex;
+	max-width: 50rem;
+	position: relative;
+}
+
+.progress-bar__fill {
+	min-height: 3rem;
+	background-color: lightblue;
+}
+
+.progress-bar__text {
+	@include absoluteCenter();
+}

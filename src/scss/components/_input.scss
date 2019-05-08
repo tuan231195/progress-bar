@@ -1,0 +1,16 @@
+.input {
+	padding: 0.5rem;
+	border: 0.2rem solid $color-light-grey;
+	border-radius: 0.5rem;
+	min-width: 16rem;
+	min-height: 4rem;
+	font-size: 1.6rem;
+
+	&:focus {
+		outline: none;
+	}
+
+	&::-webkit-input-placeholder {
+		color: $color-grey-dark;
+	}
+}

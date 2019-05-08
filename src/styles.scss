@@ -1,5 +1,11 @@
-$color-green: #0f0;
+@import 'scss/variables/colors';
 
-.color-green {
-	color: $color-green;
-}
+@import 'scss/base/mixins';
+@import 'scss/helpers/_spacing.scss';
+@import 'scss/helpers/_layout.scss';
+@import 'scss/base/base';
+@import 'scss/base/container';
+
+@import 'scss/components/input';
+@import 'scss/components/button';
+@import 'scss/components/progress-bar';
