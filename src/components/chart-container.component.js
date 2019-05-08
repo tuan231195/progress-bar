@@ -50,7 +50,17 @@ export class ChartContainerComponent {
 			this.container.appendChild(chartElement);
 		});
 
-		this.updateProgress(this.charts);
+		const chartElements = this.chartElements();
+
+		chartElements.forEach((chartElement, index) => {
+			const fillElement = chartElements[index].querySelector(
+				'[data-element-name=progress-bar-fill]'
+			);
+			fillElement.style.width = 0;
+			setTimeout(() => {
+				this.updateProgress(index);
+			});
+		});
 	}
 
 	setupGlobalEvents() {
@@ -62,6 +72,7 @@ export class ChartContainerComponent {
 			const chartElements = this.chartElements();
 
 			this.activeChart = this.charts[index];
+			this.activeChartElement = chartElements[index];
 
 			chartElements.forEach(chartElement =>
 				chartElement.classList.remove('progress-bar--active')
@@ -75,29 +86,36 @@ export class ChartContainerComponent {
 			}
 
 			this.activeChart.increase(amount);
-			this.updateProgress();
+			this.updateProgress(this.charts.indexOf(this.activeChart));
+			if (this.activeChart.value === 0) {
+				this.activeChartElement.classList.add('bounce');
+				this.activeChartElement.addEventListener('webkitAnimationEnd', () => {
+					this.activeChartElement.classList.remove('bounce');
+				});
+			}
 		});
 	}
 
-	updateProgress() {
+	updateProgress(index) {
 		const chartElements = this.chartElements();
 
-		this.charts.forEach((chart, index) => {
-			this.fillElement = chartElements[index].querySelector(
-				'[data-element-name=progress-bar-fill]'
-			);
-			const textElement = chartElements[index].querySelector(
-				'[data-element-name=progress-bar-text]'
-			);
-			textElement.textContent = chart.value;
-			const percentage = chart.percentage > 100 ? 100 : chart.percentage;
-			if (chart.percentage > 100) {
-				this.fillElement.classList.add('progress-bar__fill--over');
-			} else {
-				this.fillElement.classList.remove('progress-bar__fill--over');
-			}
-			this.fillElement.style.width = `${percentage}%`;
-		});
+		const chart = this.charts[index];
+
+		const fillElement = chartElements[index].querySelector(
+			'[data-element-name=progress-bar-fill]'
+		);
+		const textElement = chartElements[index].querySelector(
+			'[data-element-name=progress-bar-text]'
+		);
+		textElement.textContent = chart.value;
+		const percentage = chart.percentage > 100 ? 100 : chart.percentage;
+		if (chart.percentage > 100) {
+			fillElement.classList.add('progress-bar__fill--over');
+		} else {
+			fillElement.classList.remove('progress-bar__fill--over');
+		}
+
+		fillElement.style.width = `${percentage}%`;
 	}
 
 	chartElements() {

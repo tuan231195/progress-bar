@@ -1,3 +1,16 @@
 .no-transition {
 	transition: none !important;
 }
+
+.bounce {
+	animation: bounce 0.2s ease;
+}
+
+@keyframes bounce {
+	from {
+		transform: translateX(0px);
+	}
+	to {
+		transform: translateX(-0.5rem);
+	}
+}
