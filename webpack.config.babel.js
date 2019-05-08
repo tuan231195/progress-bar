@@ -11,7 +11,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const { match, env } = require('@webpack-blocks/core');
 
-const { css, file } = require('@webpack-blocks/assets');
+const { css, url } = require('@webpack-blocks/assets');
 
 const postcss = require('@webpack-blocks/postcss');
 
@@ -62,7 +62,7 @@ const webpackConfig = createConfig([
 	eslint({
 		emitWarning: true,
 	}),
-	match(['*.gif', '*.jpg', '*.jpeg', '*.png', '*.webp'], [file()]),
+	match(['*.gif', '*.jpg', '*.jpeg', '*.png', '*.webp'], [url({ limit: 8192 })]),
 	setEnv({
 		NODE_ENV: process.env.NODE_ENV,
 	}),
