@@ -14,6 +14,11 @@ setupEvents();
 setupComponents();
 
 function setupEvents() {
+	endpointInput.addEventListener('keydown', function(e) {
+		if (e.keyCode === 13) {
+			fetchAndRenderChart();
+		}
+	});
 	document.querySelector('#fetch-btn').addEventListener('click', fetchAndRenderChart);
 }
 
@@ -43,9 +48,13 @@ async function fetchAndRenderChart() {
 		return;
 	}
 
-	const chartData = await fetchData(endpoint);
+	try {
+		const chartData = await fetchData(endpoint);
 
-	renderChart(chartData);
+		renderChart(chartData);
+	} catch (e) {
+		alert(`Failed to load data`);
+	}
 }
 
 function renderChart({ buttons, bars, limit }) {
