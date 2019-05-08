@@ -17,8 +17,6 @@ function setupEvents() {
 	document.querySelector('#fetch-btn').addEventListener('click', fetchAndRenderChart);
 }
 
-fetchData('http://localhost:5000/assets/test-data.json').then(renderChart);
-
 function setupComponents() {
 	components.chartButtons = new ChartButtonsComponent(document.querySelector('#chart-buttons'), {
 		dispatcher,

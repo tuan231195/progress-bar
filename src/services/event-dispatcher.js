@@ -11,6 +11,10 @@ export class EventDispatcher {
 		this.eventListeners[event].forEach(listener => listener(event, data));
 	}
 
+	hasListener(event) {
+		return !!(this.eventListeners[event] && this.eventListeners[event].length);
+	}
+
 	on(event, listener) {
 		if (!this.eventListeners[event]) {
 			this.eventListeners[event] = [];

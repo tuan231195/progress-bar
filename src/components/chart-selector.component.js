@@ -32,7 +32,7 @@ export class ChartSelectorComponent {
 
 	setupComponentEvents() {
 		this.select.addEventListener('change', event => {
-			const chartIndex = event.target.value;
+			const chartIndex = Number(event.target.value);
 			this.dispatcher.trigger(CHANGE_CHART, chartIndex);
 		});
 	}

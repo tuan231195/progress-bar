@@ -5,7 +5,10 @@
 	"scripts": {
 		"cz": "git add . && git-cz",
 		"dev": "webpack-dev-server",
-		"build": "NODE_ENV=prod webpack"
+		"build": "NODE_ENV=prod webpack",
+		"test": "jest",
+		"test:watch": "jest --watch",
+		"test:coverage": "jest --coverage"
 	},
 	"devDependencies": {
 		"@babel/core": "7.4.4",

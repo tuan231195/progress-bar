@@ -107,15 +107,13 @@ export class ChartContainerComponent {
 		const textElement = chartElements[index].querySelector(
 			'[data-element-name=progress-bar-text]'
 		);
-		textElement.textContent = chart.value;
-		const percentage = chart.percentage > 100 ? 100 : chart.percentage;
 		if (chart.percentage > 100) {
 			fillElement.classList.add('progress-bar__fill--over');
 		} else {
 			fillElement.classList.remove('progress-bar__fill--over');
 		}
-
-		fillElement.style.width = `${percentage}%`;
+		textElement.textContent = `${Math.round(chart.percentage)}%`;
+		fillElement.style.width = `${chart.percentage > 100 ? 100 : chart.percentage}%`;
 	}
 
 	chartElements() {
